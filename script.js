@@ -2,36 +2,33 @@
 $(function(){ // if you want to use load ---- $(window).on('load', function() { ... });
     var words = []
     $("body").children().not("script", "code").each(function(i, ele) { // extracting the words under body tag 
-        words.push($(ele).text().trim().split(" ")); // pushing them to the array after trimming off the white space and splitting them into words 
+        words = words.concat($(ele).text().trim().split(" ")); // pushing them to the array after trimming off the white space and splitting them into words 
     });
+    console.log(words)
     process(words) // call the core function
 })
 
 function process(wordList) { // core function
-    let allWords = [], tfdf = {}, keywords = []
-    for (let i in wordList) {
-        allWords = allWords.concat(wordList[i]) // the each array in wordList is appended to obtain one whole array or bag of words
-    } // 0th index contains the heading tags
+    let tfdf = {}, keywords = []
+     // 0th index contains the heading tags
     
-    for (let i in allWords) {
-        if ((allWords[i] !==  null) && (tfdf[allWords[i]] === undefined)) {  // calculate the occurance of each word tf : Term Frequency and df = document frequency... No of times the word occurs in all the documents here its always one
-            tfdf[allWords[i]] = {
+    for (let i in wordList) {
+        if ((wordList[i] !== undefined) && (!(wordList[i] in tfdf))) {  // calculate the occurance of each word tf : Term Frequency and df = document frequency... No of times the word occurs in all the documents here its always one
+            tfdf[wordList[i]] = {
                 "tf" : 1
             }
         }
         else {
-            tfdf[allWords[i]].tf++
+            tfdf[wordList[i]]["tf"] += 1
         }
     }
     
-    let score = 0
-    for (let w in tfdf) {
-        score = w.tf * Math.log(1 / w.tf) // calculate the score of the word with respect to all the documents. REF === > Line 40
-        // console.log(`${score}`)
-        // alert(score)
-    }
     // console.log(tfdf)
-    
+    for (let w in tfdf) {
+        let tf = tfdf[w].tf
+        tfdf[w].score = tf * Math.abs(Math.log(1 / tf))
+    }
+    console.log(tfdf)
 }
 
 // Use TF-IDF for keyword detection.
