@@ -4,22 +4,28 @@ $(function(){ // if you want to use load ---- $(window).on('load', function() { 
     $("body").children().not("script", "code").each(function(i, ele) { // extracting the words under body tag 
         words = words.concat($(ele).text().trim().split(" ")); // pushing them to the array after trimming off the white space and splitting them into words 
     });
-    console.log(words)
     process(words) // call the core function
 })
 
+// function compare(a, b) {
+//     return 
+// }
+
 function process(wordList) { // core function
-    let tfdf = {}, keywords = []
+    let tfdf = {}, keywords = [], keys = []
      // 0th index contains the heading tags
     
     for (let i in wordList) {
-        if ((wordList[i] !== undefined) && (!(wordList[i] in tfdf))) {  // calculate the occurance of each word tf : Term Frequency and df = document frequency... No of times the word occurs in all the documents here its always one
-            tfdf[wordList[i]] = {
-                "tf" : 1
+        if  (!/\d+/.test(wordList[i])) {
+            if ((wordList[i] !== undefined) && (!(wordList[i] in tfdf))) {  // calculate the occurance of each word tf : Term Frequency and df = document frequency... No of times the word occurs in all the documents here its always one
+                tfdf[wordList[i]] = {
+                    "tf" : 1
+                }
+                // keys.push(wordList[i])
             }
-        }
-        else {
-            tfdf[wordList[i]]["tf"] += 1
+            else {
+                tfdf[wordList[i]]["tf"] += 1
+            }
         }
     }
     
@@ -27,8 +33,9 @@ function process(wordList) { // core function
     for (let w in tfdf) {
         let tf = tfdf[w].tf
         tfdf[w].score = tf * Math.abs(Math.log(1 / tf))
+        if (tfdf[w].score === 0) keywords.push(w)
     }
-    console.log(tfdf)
+    console.log(keywords)
 }
 
 // Use TF-IDF for keyword detection.
