@@ -1,22 +1,14 @@
 {
-    "version" : "1.0.0.0",
-    "manifest_version":2,
-  
-    "name": "KeyHighlighter",
-    "description": "This extension will highlight the words in a document with respect to the topic.",
-  
-    "browser_action": {
-     "default_icon": "icon.png",
-     "default_popup": "popup.html"
-    },
-    "permissions": [
-     "activeTab"
-     ],
-     "content_scripts" : [
-         {
-             "matches" : ["http://*/*", "https://*/*"],
-             "css" : ["ext.css"],
-             "js" : ["jQuery.js", "highlight.js", "script.js"]
-         }
-     ]
-  }
+  "manifest_version": 1,
+
+  "name": "KeyHighlighter",
+  "description": "This extension will highlight the words in a document with respect to the topic.",
+
+  "browser_action": {
+   "default_icon": "icon.png",
+   "default_popup": "popup.html"
+  },
+  "permissions": [
+   "activeTab"
+   ]
+}
