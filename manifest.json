@@ -1,5 +1,5 @@
 {
-  "manifest_version": 1,
+  "manifest_version":2,
 
   "name": "KeyHighlighter",
   "description": "This extension will highlight the words in a document with respect to the topic.",
@@ -10,5 +10,13 @@
   },
   "permissions": [
    "activeTab"
-   ]
+   ],
+   "content_scripts" : [
+         {
+             "matches" : ["http://*/*", "https://*/*"],
+             "css" : ["ext.css"],
+             "js" : ["jQuery.js", "highlight.js", "script.js"]
+         }
+     ]
+  }
 }
