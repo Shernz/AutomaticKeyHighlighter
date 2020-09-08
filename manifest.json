@@ -1,5 +1,5 @@
 {
-  "manifest_version":2,
+  "manifest_version":1,
 
   "name": "KeyHighlighter",
   "description": "This extension will highlight the words in a document with respect to the topic.",
